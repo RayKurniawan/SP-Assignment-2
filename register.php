@@ -39,7 +39,7 @@
                 <h3 class="card-title fw-semibold text-white mb-1 text-center">Create Account</h3>
                 <p class="text-white-50 mb-4 text-center">Join us to store your files securely.</p>
                 
-                <form action="#" method="POST">
+                <form action="doRegister.php" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label text-white-50 small mb-1">Username</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -18,6 +19,11 @@
 // your mission in this file:
 // 1. Check session for user authentication if not authenticated redirect to login.php
 // 2. If authenticated display the following options: Upload File, View Uploads 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 ?>
 <body class="d-flex justify-content-center align-items-center vh-100">
     <div class="container d-flex justify-content-center">

@@ -33,6 +33,29 @@
 // 1. Check session for user authentication if not authenticated redirect to login.php
 // 2. If authenticated display the list of uploaded files in a table format with the following columns: File Name, Size, Date Uploaded, Actions (Download/Delete)
 // 3. makesure just show data from the logged in user
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$host = "localhost";
+$username_db = "root";
+$password_db = "";
+$dbname = "db_upload_exercise";
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username_db, $password_db);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // 3. Make sure just show data from the logged in user
+    $stmt = $pdo->prepare("SELECT * FROM files WHERE user_id = :user_id ORDER BY uploaded_at DESC");
+    $stmt->execute(['user_id' => $_SESSION['user_id']]);
+    $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("Koneksi database gagal: " . $e->getMessage());
+}
 ?>
 
 <body class="py-5">
